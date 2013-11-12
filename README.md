@@ -38,6 +38,30 @@ What tools are there?
 
 * element-info : Extract information about elements.
 
+* element-runner: Apply elements to the current system instead of a chroot.
+  Allows for very fine grained control of which elements and hooks to apply.
+
+  * For usage, see "element-runner --help"
+
+  * Use -k/--hook to specify which hooks from an element to apply. For
+    instance, you can apply just the install hooks from the specified elements
+    by using "-k install".
+
+  * To enforce a specific ordering that elements get applied, or to specify
+    different sets of hooks to apply for different sets of elements, just call
+    element-runner multiple times with different options.  For example, to run
+    the pre-install hooks, followed by the install hooks for the fedora element,
+    you would do the following:
+
+        bin/element-runner -p elements -k pre-install -e fedora
+        bin/element-runner -p elements -k install -e fedora
+
+  * You can also explicitally exclude elements to apply that may be pulled in
+    by dependency resolution using -x/--exclude-element.
+
+  * Individual scripts that are part of hooks can also be blacklisted so that
+    they are not run with -b/--blacklist.
+
 Why?
 ----
 
